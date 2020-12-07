@@ -30,3 +30,31 @@
  '172.21.41.129', '172.21.41.130', '172.21.41.131', '172.21.41.132']
 
 """
+def convert_ranges_to_ip_list(ip_diapozon):
+    vse_ip = []
+    for i in ip_diapozon:
+        razrez = i.split('.')
+        if '-' not in i:
+            vse_ip.append(i)
+        else:
+            nacalo = razrez[3]
+            nacalo = nacalo.split('-')
+            nacalo = int(nacalo[0])
+            if '-' in razrez[-1]:
+                conec = razrez[-1].split('-')
+                while nacalo <= int(conec[-1]):
+                    vse_ip.append(f'{razrez[0]}.{razrez[1]}.{razrez[2]}.{str(nacalo)}')
+                    nacalo += 1
+            else:
+                while nacalo <= int(razrez[-1]):
+                    vse_ip.append(f'{razrez[0]}.{razrez[1]}.{razrez[2]}.{str(nacalo)}')
+                    nacalo += 1
+    print(vse_ip)
+    return vse_ip
+
+
+
+
+
+list_of_ips = ["10.1.1.1", "10.4.10.10-13", "192.168.1.12-192.168.1.15"]
+convert_ranges_to_ip_list(list_of_ips)
